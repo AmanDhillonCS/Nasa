@@ -1,12 +1,17 @@
 package com.example.nasa;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DownloadManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -27,11 +32,30 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RequestQueue requestQueue;
     private List<Image> imgList;
+
+    String Search;
+    EditText userSearchInput;
+
+    Button searchButton;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+        userSearchInput = findViewById(R.id.user_input);
+        searchButton = findViewById(R.id.search_button);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               Search = userSearchInput.getText().toString();
+                fetchData(Search);
+            }
+        });
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -40,11 +64,14 @@ public class MainActivity extends AppCompatActivity {
 
         imgList = new ArrayList<>();
 
-        fetchData();
+      //  fetchData();
+
     }
 
-    private void fetchData(){
-        String url = "https://images-api.nasa.gov/search?q=earth&media_type=image";
+
+
+    private void fetchData(String search){
+        String url = "https://images-api.nasa.gov/search?q="+search+"&media_type=image";
 
         // JSON Object request
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
