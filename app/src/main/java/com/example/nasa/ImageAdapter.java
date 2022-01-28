@@ -16,7 +16,11 @@ import java.util.List;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>{
 
+
+
     // Variables
+
+
     Context context;
     List<Image> imageList;
 
@@ -52,7 +56,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
-
         }
 
         // Setter

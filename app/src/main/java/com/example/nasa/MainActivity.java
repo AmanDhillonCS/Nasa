@@ -45,17 +45,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
+        // Get User Input
         userSearchInput = findViewById(R.id.user_input);
         searchButton = findViewById(R.id.search_button);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                Search = userSearchInput.getText().toString();
                 fetchData(Search);
+
+
             }
+
         });
+
+
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -64,16 +70,14 @@ public class MainActivity extends AppCompatActivity {
 
         imgList = new ArrayList<>();
 
-      //  fetchData();
-
     }
 
 
-
+    // JSON Object request to get the title and image from the API
     private void fetchData(String search){
         String url = "https://images-api.nasa.gov/search?q="+search+"&media_type=image";
 
-        // JSON Object request
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
