@@ -1,7 +1,6 @@
 package com.example.nasa;
 
 // Image class contains information about images that display on MainActivity screen
-
 public class Image {
 
     // Variables
@@ -9,7 +8,7 @@ public class Image {
     private String title;
 
     // Constructor
-    public Image(String imageUrl, String title){
+    public Image(String imageUrl, String title) {
         this.imageUrl = imageUrl;
         this.title = title;
     }
