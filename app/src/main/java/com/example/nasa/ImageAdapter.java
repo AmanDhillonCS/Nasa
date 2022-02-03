@@ -1,6 +1,8 @@
 package com.example.nasa;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -39,6 +42,19 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
         Image image = imageList.get(position);
         holder.setImageView(image.getImageUrl());
         holder.setTitle(image.getTitle());
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DetailActivity.class);
+
+                Bundle bundel = new Bundle();
+                bundel.putString("title", image.getTitle());
+                bundel.putString("image", image.getImageUrl());
+
+                intent.putExtras(bundel);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -50,10 +66,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
         ImageView imageView;
         TextView imgTitle;
         View view;
+        ConstraintLayout constraintLayout;
 
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
+            constraintLayout = itemView.findViewById(R.id.main_layout);
         }
 
         // Set Image
